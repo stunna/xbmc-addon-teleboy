@@ -154,7 +154,7 @@ def show_main():
                 cid, cid2 = tr.find( "a", "playIcon")["data-play-live"].split("/")
                 img = get_stationLogo( id)
                 title = label = channel + ": " + show
-                p = tr.find( "p", "listing_info");
+                p = tr.find( "p", "listing-info");
                 if p:
                     desc = p.text.replace( "|", "| ")
                     label = label + " (+" + desc + ")"
