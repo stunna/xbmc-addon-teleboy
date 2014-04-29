@@ -58,9 +58,9 @@ def ensure_cookie():
              "password": password,
              "keep_login": "1",
              "x": "3", "y": "4" }
-    
+
     reply = fetchHttp( url, args, post=True);
-    
+
     if "Falsche Eingaben" in reply or "Anmeldung war nicht erfolgreich" in reply:
         log( "login failure")
         log( reply)
@@ -70,7 +70,7 @@ def ensure_cookie():
     res = cookie.save( ignore_discard=True)
     log( "login ok")
     return True
-        
+
 
 def getUrl( url, args={}, hdrs={}, post=False):
     url = URL_BASE + url
@@ -88,7 +88,7 @@ def get_stationLogo( station):
     return URL_BASE_MEDIA + "/t_station/%d/logo_s_big1.gif" % int(station)
 
 def get_streamparams( station, cid, cid2):
-    hdrs = { "Referer": URL_BASE + "/tv/player/player.php" } 
+    hdrs = { "Referer": URL_BASE + "/tv/player/player.php" }
     url = "/tv/player/ajax/liveChannelParams"
     args = { "cid": cid, "cid2": cid2 }
 
@@ -122,14 +122,14 @@ def addDirectoryItem( name, params={}, image="", total=0):
 
     name = htmldecode( name)
     li = xbmcgui.ListItem( name, iconImage=img, thumbnailImage=image)
-            
+
     li.setProperty( "Video", "true")
-    
+
     params_encoded = dict()
     for k in params.keys():
         params_encoded[k] = params[k].encode( "utf-8")
     url = sys.argv[0] + '?' + urllib.urlencode( params_encoded)
-    
+
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder = False, totalItems=total)
 ###########
 # END TEMP
@@ -137,7 +137,7 @@ def addDirectoryItem( name, params={}, image="", total=0):
 
 def show_main():
     soup = BeautifulSoup( getUrl( "/tv/live_tv.php"))
-    
+
     table = soup.find( "table", "show-listing")
     if not table: return
     for tr in table.findAll( "tr"):
@@ -146,7 +146,7 @@ def show_main():
             try:
                 id = int( a["data-stationid"])
                 channel = htmldecode( tr.find( "td", "station").find( "img")["alt"])
-                details = tr.find( "td", "showDetails")
+                details = tr.find( "td", "show-details")
                 if (details.find( "a")):
                     show = htmldecode( details.find( "a")["title"])
                 else:
@@ -170,7 +170,7 @@ def show_main():
 # xbmc entry point
 ############################################
 sayHi()
-    
+
 params = parameters_string_to_dict(sys.argv[2])
 mode = params.get(PARAMETER_KEY_MODE, "0")
 
