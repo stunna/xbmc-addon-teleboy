@@ -71,7 +71,6 @@ def ensure_cookie():
     log( "login ok")
     return True
 
-
 def getUrl( url, args={}, hdrs={}, post=False):
     url = URL_BASE + url
     if ensure_cookie():
@@ -139,6 +138,7 @@ def show_main():
     soup = BeautifulSoup( getUrl( "/tv/live_tv.php"))
 
     table = soup.find( "table", "show-listing")
+
     if not table: return
     for tr in table.findAll( "tr"):
         a = tr.find( "a", "playIcon")
@@ -163,7 +163,7 @@ def show_main():
             except Exception as e:
                 log( "Exception: " + str(e))
                 log( "HTML(show): " + str( tr))
-#        print "%3d  %-10s %s (+%s)" % (id, name, show, desc)
+       #print "%3d  %-10s %s (+%s)" % (id, name, show, desc)
     xbmcplugin.endOfDirectory( handle=pluginhandle, succeeded=True)
 
 #

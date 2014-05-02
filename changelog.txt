@@ -1,3 +1,7 @@
+version 0.2.6
+
+  * changed two classes for fix
+  
 version 0.2.5
 
   * skip unparseable channel entries in main channel list
